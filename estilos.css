@@ -2,4 +2,5 @@
   white-space: nowrap;
   overflow: hidden;
   border-right:
+  animation: typing 3.5s steps(30, end):
 }
