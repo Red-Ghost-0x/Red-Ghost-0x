@@ -1,10 +1,412 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Red-Ghost</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DevDrop — Comparte código y archivos</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="estilos.css"/>
 </head>
 <body>
-  <h1 class="dom-title">"0x-ow-0-3"</h1>
-</body>
 
+<!-- ═══════════════════════════  NAVBAR  ═══════════════════════════ -->
+<nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <span class="brand-icon"><i class="bi bi-broadcast-pin"></i></span>
+      <span class="brand-text">Dev<span class="accent">Drop</span></span>
+    </a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+      <i class="bi bi-list text-white fs-4"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navContent">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link active" href="#" data-section="feed"><i class="bi bi-grid-3x3-gap me-1"></i>Feed</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-section="explorar"><i class="bi bi-compass me-1"></i>Explorar</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-section="mis-archivos"><i class="bi bi-folder2-open me-1"></i>Mis Archivos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-section="mensajes"><i class="bi bi-chat-dots me-1"></i>Mensajes <span class="badge-msg" id="msgBadge">3</span></a></li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-upload" data-bs-toggle="modal" data-bs-target="#uploadModal">
+          <i class="bi bi-cloud-upload me-2"></i>Subir
+        </button>
+        <div class="avatar-wrap" data-bs-toggle="modal" data-bs-target="#profileModal">
+          <img src="https://api.dicebear.com/7.x/bottts/svg?seed=devdrop" alt="avatar" class="user-avatar"/>
+          <span class="online-dot"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════  HERO BANNER  ═══════════════════════════ -->
+<section class="hero-section" id="heroSection">
+  <div class="hero-grid-bg"></div>
+  <div class="container text-center position-relative z-1">
+    <div class="hero-badge mb-3"><i class="bi bi-stars me-1"></i>Plataforma open-share para devs</div>
+    <h1 class="hero-title">Comparte código,<br/><span class="accent">archivos y APKs</span></h1>
+    <p class="hero-sub">Sube cualquier archivo, comenta, reacciona y colabora con la comunidad.<br/>Sin límites de extensión.</p>
+    <div class="hero-search mx-auto mt-4">
+      <i class="bi bi-search search-icon"></i>
+      <input type="text" id="globalSearch" class="hero-input" placeholder="Buscar archivos, código, APKs…" autocomplete="off"/>
+      <kbd class="search-kbd">⌘K</kbd>
+    </div>
+    <div class="hero-tags mt-3" id="trendingTags"></div>
+  </div>
+  <div class="hero-scroll-hint"><i class="bi bi-chevron-compact-down"></i></div>
+</section>
+
+<!-- ═══════════════════════════  MAIN CONTENT  ═══════════════════════════ -->
+<main class="main-content container-fluid px-3 px-md-5" id="mainContent">
+
+  <!-- STATS BAR -->
+  <div class="stats-bar row g-3 mb-4" id="statsBar">
+    <div class="col-6 col-md-3"><div class="stat-card"><span class="stat-num" id="statFiles">0</span><span class="stat-label">Archivos</span></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card"><span class="stat-num" id="statDownloads">0</span><span class="stat-label">Descargas</span></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card"><span class="stat-num" id="statUsers">0</span><span class="stat-label">Usuarios</span></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card"><span class="stat-num" id="statComments">0</span><span class="stat-label">Comentarios</span></div></div>
+  </div>
+
+  <!-- FILTERS & SORT -->
+  <div class="filter-bar d-flex flex-wrap align-items-center gap-2 mb-4" id="filterBar">
+    <div class="filter-label"><i class="bi bi-funnel me-1"></i>Filtros:</div>
+    <div class="filter-chips" id="filterChips"></div>
+    <div class="ms-auto d-flex gap-2 align-items-center">
+      <select class="sort-select" id="sortSelect">
+        <option value="newest">Más recientes</option>
+        <option value="popular">Más populares</option>
+        <option value="downloads">Más descargados</option>
+        <option value="comments">Más comentados</option>
+      </select>
+      <button class="view-btn active" id="viewGrid" title="Cuadrícula"><i class="bi bi-grid-fill"></i></button>
+      <button class="view-btn" id="viewList" title="Lista"><i class="bi bi-list-ul"></i></button>
+    </div>
+  </div>
+
+  <!-- FEED GRID -->
+  <div class="row g-3" id="fileGrid"></div>
+
+  <!-- EMPTY STATE -->
+  <div class="empty-state d-none text-center py-5" id="emptyState">
+    <div class="empty-icon"><i class="bi bi-folder-x"></i></div>
+    <p class="empty-text">No se encontraron archivos con ese criterio</p>
+    <button class="btn btn-upload mt-2" onclick="clearFilters()">Limpiar filtros</button>
+  </div>
+
+  <!-- LOAD MORE -->
+  <div class="text-center mt-4 mb-5" id="loadMoreWrap">
+    <button class="btn-loadmore" id="loadMoreBtn" onclick="loadMore()">
+      <i class="bi bi-arrow-clockwise me-2"></i>Cargar más
+    </button>
+  </div>
+
+</main>
+
+<!-- ═══════════════════════  TOAST CONTAINER  ═══════════════════════ -->
+<div class="toast-stack" id="toastStack"></div>
+
+<!-- ════════════════════════════  MODALS  ════════════════════════════ -->
+
+<!-- UPLOAD MODAL -->
+<div class="modal fade" id="uploadModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content modal-dark">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title"><i class="bi bi-cloud-upload me-2 accent"></i>Subir archivo</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Drop zone -->
+        <div class="drop-zone" id="dropZone">
+          <div class="drop-inner">
+            <i class="bi bi-box-arrow-in-down drop-icon"></i>
+            <p class="drop-text">Arrastra tu archivo aquí</p>
+            <p class="drop-sub">o haz clic para seleccionar — cualquier extensión</p>
+            <input type="file" id="fileInput" class="d-none" accept="*/*"/>
+            <button class="btn btn-upload mt-2" onclick="document.getElementById('fileInput').click()">
+              <i class="bi bi-folder2 me-2"></i>Seleccionar archivo
+            </button>
+          </div>
+        </div>
+        <!-- Preview -->
+        <div class="file-preview d-none mt-3" id="filePreview">
+          <div class="d-flex align-items-center gap-3">
+            <div class="fp-icon" id="fpIcon"></div>
+            <div class="flex-grow-1">
+              <div class="fp-name" id="fpName"></div>
+              <div class="fp-meta" id="fpMeta"></div>
+            </div>
+            <button class="btn-ghost" onclick="clearFileInput()"><i class="bi bi-x-lg"></i></button>
+          </div>
+          <div class="upload-progress mt-3 d-none" id="uploadProgress">
+            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+            <span class="progress-pct" id="progressPct">0%</span>
+          </div>
+        </div>
+        <!-- Metadata form -->
+        <div class="mt-3 row g-3">
+          <div class="col-12">
+            <label class="form-label-dark">Título <span class="text-danger">*</span></label>
+            <input type="text" class="input-dark" id="uploadTitle" placeholder="Dale un nombre a tu archivo…" maxlength="80"/>
+          </div>
+          <div class="col-12">
+            <label class="form-label-dark">Descripción</label>
+            <textarea class="input-dark" id="uploadDesc" rows="3" placeholder="¿Qué es este archivo? ¿Para qué sirve?"></textarea>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label-dark">Categoría</label>
+            <select class="input-dark" id="uploadCat">
+              <option value="codigo">💻 Código</option>
+              <option value="apk">📱 APK</option>
+              <option value="documento">📄 Documento</option>
+              <option value="imagen">🖼️ Imagen</option>
+              <option value="video">🎬 Video</option>
+              <option value="audio">🎵 Audio</option>
+              <option value="otro">📦 Otro</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label-dark">Visibilidad</label>
+            <select class="input-dark" id="uploadVis">
+              <option value="public">🌍 Público</option>
+              <option value="private">🔒 Privado</option>
+              <option value="link">🔗 Solo con enlace</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <label class="form-label-dark">Tags (separa con coma)</label>
+            <input type="text" class="input-dark" id="uploadTags" placeholder="python, script, util…"/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <button class="btn-ghost" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-upload px-4" id="submitUpload" onclick="handleUpload()">
+          <i class="bi bi-send me-2"></i>Publicar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FILE DETAIL MODAL -->
+<div class="modal fade" id="fileModal" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content modal-dark">
+      <div class="modal-header border-0">
+        <div class="d-flex align-items-center gap-3 flex-grow-1">
+          <div class="fp-icon sm" id="fmIcon"></div>
+          <div>
+            <h5 class="modal-title mb-0" id="fmTitle">—</h5>
+            <small class="text-muted" id="fmMeta">—</small>
+          </div>
+        </div>
+        <div class="d-flex gap-2 me-3">
+          <button class="action-btn" id="fmLikeBtn" onclick="toggleLike()"><i class="bi bi-heart"></i> <span id="fmLikes">0</span></button>
+          <button class="action-btn" onclick="handleDownload()"><i class="bi bi-download"></i> <span id="fmDownloads">0</span></button>
+          <button class="action-btn" onclick="shareFile()"><i class="bi bi-share"></i></button>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body row g-0" style="min-height:420px">
+        <!-- LEFT: preview / info -->
+        <div class="col-lg-7 border-end border-secondary p-4">
+          <div class="file-detail-preview" id="fmPreview"></div>
+          <div class="mt-3">
+            <p class="text-muted small mb-2" id="fmDesc"></p>
+            <div id="fmTags" class="d-flex flex-wrap gap-1 mb-3"></div>
+            <!-- CRUD buttons (owner only) -->
+            <div class="d-flex gap-2" id="fmOwnerActions">
+              <button class="btn-ghost sm" onclick="openEditModal()"><i class="bi bi-pencil me-1"></i>Editar</button>
+              <button class="btn-danger-ghost sm" onclick="deleteFile()"><i class="bi bi-trash me-1"></i>Eliminar</button>
+            </div>
+          </div>
+        </div>
+        <!-- RIGHT: comments -->
+        <div class="col-lg-5 d-flex flex-column">
+          <div class="comment-header p-3 border-bottom border-secondary">
+            <span><i class="bi bi-chat-dots me-1 accent"></i>Comentarios (<span id="fmCommentCount">0</span>)</span>
+          </div>
+          <div class="comment-list flex-grow-1 p-3" id="commentList"></div>
+          <div class="comment-input-bar p-3 border-top border-secondary">
+            <div class="d-flex gap-2 align-items-start">
+              <img src="https://api.dicebear.com/7.x/bottts/svg?seed=devdrop" class="comment-avatar" alt="yo"/>
+              <div class="flex-grow-1">
+                <textarea class="input-dark sm" id="newComment" rows="2" placeholder="Escribe un comentario…"></textarea>
+                <div class="d-flex justify-content-end mt-1">
+                  <button class="btn btn-upload sm" onclick="addComment()"><i class="bi bi-send me-1"></i>Enviar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content modal-dark">
+      <div class="modal-header border-0">
+        <h5 class="modal-title"><i class="bi bi-pencil-square me-2 accent"></i>Editar archivo</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body row g-3">
+        <div class="col-12">
+          <label class="form-label-dark">Título</label>
+          <input type="text" class="input-dark" id="editTitle"/>
+        </div>
+        <div class="col-12">
+          <label class="form-label-dark">Descripción</label>
+          <textarea class="input-dark" id="editDesc" rows="3"></textarea>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label-dark">Categoría</label>
+          <select class="input-dark" id="editCat">
+            <option value="codigo">💻 Código</option>
+            <option value="apk">📱 APK</option>
+            <option value="documento">📄 Documento</option>
+            <option value="imagen">🖼️ Imagen</option>
+            <option value="video">🎬 Video</option>
+            <option value="audio">🎵 Audio</option>
+            <option value="otro">📦 Otro</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label-dark">Visibilidad</label>
+          <select class="input-dark" id="editVis">
+            <option value="public">🌍 Público</option>
+            <option value="private">🔒 Privado</option>
+            <option value="link">🔗 Solo con enlace</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <label class="form-label-dark">Tags</label>
+          <input type="text" class="input-dark" id="editTags"/>
+        </div>
+      </div>
+      <div class="modal-footer border-0">
+        <button class="btn-ghost" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-upload" onclick="saveEdit()"><i class="bi bi-check2 me-1"></i>Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MESSAGES MODAL -->
+<div class="modal fade" id="messagesModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content modal-dark">
+      <div class="modal-header border-0">
+        <h5 class="modal-title"><i class="bi bi-chat-dots me-2 accent"></i>Mensajes directos</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-0 d-flex" style="height:500px">
+        <!-- Conversations list -->
+        <div class="conv-list border-end border-secondary">
+          <div class="p-2">
+            <input type="text" class="input-dark sm" id="convSearch" placeholder="Buscar…" oninput="filterConvs(this.value)"/>
+          </div>
+          <div id="convList"></div>
+        </div>
+        <!-- Chat window -->
+        <div class="flex-grow-1 d-flex flex-column">
+          <div class="chat-header p-3 border-bottom border-secondary" id="chatHeader">
+            <span class="text-muted">Selecciona una conversación</span>
+          </div>
+          <div class="chat-messages flex-grow-1 p-3" id="chatMessages"></div>
+          <div class="chat-input-bar p-3 border-top border-secondary" id="chatInputBar" style="display:none!important">
+            <div class="d-flex gap-2">
+              <input type="text" class="input-dark flex-grow-1" id="msgInput" placeholder="Escribe un mensaje…" onkeydown="if(event.key==='Enter')sendMessage()"/>
+              <button class="btn btn-upload" onclick="sendMessage()"><i class="bi bi-send"></i></button>
+            </div>
+          </div>
+          <!-- Actually always show input -->
+          <div class="p-3 border-top border-secondary">
+            <div class="d-flex gap-2">
+              <input type="text" class="input-dark flex-grow-1" id="msgInputBottom" placeholder="Escribe un mensaje…" onkeydown="if(event.key==='Enter')sendMessage()"/>
+              <button class="btn btn-upload" onclick="sendMessage()"><i class="bi bi-send"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div class="modal fade" id="profileModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content modal-dark">
+      <div class="modal-header border-0">
+        <h5 class="modal-title"><i class="bi bi-person-circle me-2 accent"></i>Mi perfil</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="profile-avatar-wrap mx-auto mb-3">
+          <img src="https://api.dicebear.com/7.x/bottts/svg?seed=devdrop" class="profile-avatar" alt="avatar"/>
+          <button class="avatar-change-btn" onclick="changeAvatar()"><i class="bi bi-camera"></i></button>
+        </div>
+        <div class="row g-3 text-start">
+          <div class="col-md-6">
+            <label class="form-label-dark">Nombre de usuario</label>
+            <input type="text" class="input-dark" id="profileUsername" value="DevUser_42"/>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label-dark">Email</label>
+            <input type="email" class="input-dark" id="profileEmail" value="dev@example.com"/>
+          </div>
+          <div class="col-12">
+            <label class="form-label-dark">Bio</label>
+            <textarea class="input-dark" id="profileBio" rows="2" placeholder="Cuéntanos algo de ti…"></textarea>
+          </div>
+          <div class="col-12">
+            <label class="form-label-dark">Sitio web</label>
+            <input type="url" class="input-dark" id="profileWeb" placeholder="https://tu-sitio.dev"/>
+          </div>
+        </div>
+        <div class="profile-stats mt-4 d-flex justify-content-center gap-4">
+          <div class="text-center"><div class="stat-big" id="myFiles">0</div><small class="text-muted">Archivos</small></div>
+          <div class="text-center"><div class="stat-big" id="myLikes">0</div><small class="text-muted">Likes</small></div>
+          <div class="text-center"><div class="stat-big" id="myDownloads">0</div><small class="text-muted">Descargas</small></div>
+        </div>
+      </div>
+      <div class="modal-footer border-0">
+        <button class="btn-ghost" data-bs-dismiss="modal">Cerrar</button>
+        <button class="btn btn-upload" onclick="saveProfile()"><i class="bi bi-check2 me-1"></i>Guardar perfil</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE MODAL -->
+<div class="modal fade" id="confirmModal" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content modal-dark text-center p-3">
+      <div class="fs-1 mb-2">⚠️</div>
+      <h6 class="mb-2">¿Eliminar archivo?</h6>
+      <p class="text-muted small mb-3">Esta acción no se puede deshacer.</p>
+      <div class="d-flex gap-2 justify-content-center">
+        <button class="btn-ghost" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn-danger-ghost" id="confirmDeleteBtn">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="data.js"></script>
+<script src="scripts.js"></script>
+</body>
 </html>
