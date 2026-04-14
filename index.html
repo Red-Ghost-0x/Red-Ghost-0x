@@ -2,411 +2,897 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DevDrop — Comparte código y archivos</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="estilos.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CandyPicks – Fiestas mágicas, antojos para todos</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Google Fonts: Oi + Trebuchet fallback via link -->
+  <link href="https://fonts.googleapis.com/css2?family=Oi&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-<!-- ═══════════════════════════  NAVBAR  ═══════════════════════════ -->
+<!-- ═══════════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════════ -->
 <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
-  <div class="container-fluid px-4">
-    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-      <span class="brand-icon"><i class="bi bi-broadcast-pin"></i></span>
-      <span class="brand-text">Dev<span class="accent">Drop</span></span>
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#hero">
+      <span class="brand-logo">🍬</span>
+      <span class="brand-name">CandyPicks</span>
     </a>
-
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
-      <i class="bi bi-list text-white fs-4"></i>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+      aria-controls="navMenu" aria-expanded="false" aria-label="Abrir menú">
+      <span class="navbar-toggler-icon"></span>
     </button>
-
-    <div class="collapse navbar-collapse" id="navContent">
-      <ul class="navbar-nav mx-auto gap-1">
-        <li class="nav-item"><a class="nav-link active" href="#" data-section="feed"><i class="bi bi-grid-3x3-gap me-1"></i>Feed</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" data-section="explorar"><i class="bi bi-compass me-1"></i>Explorar</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" data-section="mis-archivos"><i class="bi bi-folder2-open me-1"></i>Mis Archivos</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" data-section="mensajes"><i class="bi bi-chat-dots me-1"></i>Mensajes <span class="badge-msg" id="msgBadge">3</span></a></li>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto gap-lg-2 align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link" href="#galeria">Galería</a></li>
+        <li class="nav-item"><a class="nav-link" href="#paquetes">Paquetes</a></li>
+        <li class="nav-item"><a class="nav-link" href="#adicionales">Extras</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+        <li class="nav-item ms-lg-2">
+          <a class="btn btn-cta" href="#contacto">Cotizar ahora</a>
+        </li>
       </ul>
-
-      <div class="d-flex align-items-center gap-3">
-        <button class="btn btn-upload" data-bs-toggle="modal" data-bs-target="#uploadModal">
-          <i class="bi bi-cloud-upload me-2"></i>Subir
-        </button>
-        <div class="avatar-wrap" data-bs-toggle="modal" data-bs-target="#profileModal">
-          <img src="https://api.dicebear.com/7.x/bottts/svg?seed=devdrop" alt="avatar" class="user-avatar"/>
-          <span class="online-dot"></span>
-        </div>
-      </div>
     </div>
   </div>
 </nav>
 
-<!-- ═══════════════════════════  HERO BANNER  ═══════════════════════════ -->
-<section class="hero-section" id="heroSection">
-  <div class="hero-grid-bg"></div>
-  <div class="container text-center position-relative z-1">
-    <div class="hero-badge mb-3"><i class="bi bi-stars me-1"></i>Plataforma open-share para devs</div>
-    <h1 class="hero-title">Comparte código,<br/><span class="accent">archivos y APKs</span></h1>
-    <p class="hero-sub">Sube cualquier archivo, comenta, reacciona y colabora con la comunidad.<br/>Sin límites de extensión.</p>
-    <div class="hero-search mx-auto mt-4">
-      <i class="bi bi-search search-icon"></i>
-      <input type="text" id="globalSearch" class="hero-input" placeholder="Buscar archivos, código, APKs…" autocomplete="off"/>
-      <kbd class="search-kbd">⌘K</kbd>
+<!-- ═══════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════ -->
+<section id="hero" class="hero-section d-flex align-items-center">
+  <!-- Decorative blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="container position-relative z-1">
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-6 hero-text">
+        <p class="hero-tag">✨ Servicio asistido en eventos</p>
+        <h1 class="hero-title">Fiestas mágicas,<br><em>antojos para todos</em></h1>
+        <p class="hero-subtitle">
+          Mesas de dulces, snacks y postres con atención personalizada.
+          Cada invitado elige, disfruta y vive un momento especial.
+        </p>
+        <div class="d-flex flex-wrap gap-3 mt-4">
+          <a href="#paquetes" class="btn btn-hero-primary">Ver paquetes</a>
+          <a href="#contacto" class="btn btn-hero-secondary">Hablar con nosotros</a>
+        </div>
+        <div class="hero-badges d-flex flex-wrap gap-3 mt-5">
+          <span class="badge-pill"><i class="bi bi-shield-check"></i> Higiénico</span>
+          <span class="badge-pill"><i class="bi bi-palette2"></i> Temático</span>
+          <span class="badge-pill"><i class="bi bi-emoji-smile"></i> Personalizado</span>
+          <span class="badge-pill"><i class="bi bi-stars"></i> Memorable</span>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <!-- Imagen hero principal -->
+        <div class="img-frame img-frame--hero">
+          <img src="images/hero.jpg" alt="Mesa de dulces CandyPicks" class="img-fluid" />
+          <div class="img-placeholder" aria-hidden="true">
+            <i class="bi bi-image"></i>
+            <span>Imagen principal<br><small>Reemplaza <code>images/hero.jpg</code></small></span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="hero-tags mt-3" id="trendingTags"></div>
   </div>
-  <div class="hero-scroll-hint"><i class="bi bi-chevron-compact-down"></i></div>
 </section>
 
-<!-- ═══════════════════════════  MAIN CONTENT  ═══════════════════════════ -->
-<main class="main-content container-fluid px-3 px-md-5" id="mainContent">
-
-  <!-- STATS BAR -->
-  <div class="stats-bar row g-3 mb-4" id="statsBar">
-    <div class="col-6 col-md-3"><div class="stat-card"><span class="stat-num" id="statFiles">0</span><span class="stat-label">Archivos</span></div></div>
-    <div class="col-6 col-md-3"><div class="stat-card"><span class="stat-num" id="statDownloads">0</span><span class="stat-label">Descargas</span></div></div>
-    <div class="col-6 col-md-3"><div class="stat-card"><span class="stat-num" id="statUsers">0</span><span class="stat-label">Usuarios</span></div></div>
-    <div class="col-6 col-md-3"><div class="stat-card"><span class="stat-num" id="statComments">0</span><span class="stat-label">Comentarios</span></div></div>
-  </div>
-
-  <!-- FILTERS & SORT -->
-  <div class="filter-bar d-flex flex-wrap align-items-center gap-2 mb-4" id="filterBar">
-    <div class="filter-label"><i class="bi bi-funnel me-1"></i>Filtros:</div>
-    <div class="filter-chips" id="filterChips"></div>
-    <div class="ms-auto d-flex gap-2 align-items-center">
-      <select class="sort-select" id="sortSelect">
-        <option value="newest">Más recientes</option>
-        <option value="popular">Más populares</option>
-        <option value="downloads">Más descargados</option>
-        <option value="comments">Más comentados</option>
-      </select>
-      <button class="view-btn active" id="viewGrid" title="Cuadrícula"><i class="bi bi-grid-fill"></i></button>
-      <button class="view-btn" id="viewList" title="Lista"><i class="bi bi-list-ul"></i></button>
-    </div>
-  </div>
-
-  <!-- FEED GRID -->
-  <div class="row g-3" id="fileGrid"></div>
-
-  <!-- EMPTY STATE -->
-  <div class="empty-state d-none text-center py-5" id="emptyState">
-    <div class="empty-icon"><i class="bi bi-folder-x"></i></div>
-    <p class="empty-text">No se encontraron archivos con ese criterio</p>
-    <button class="btn btn-upload mt-2" onclick="clearFilters()">Limpiar filtros</button>
-  </div>
-
-  <!-- LOAD MORE -->
-  <div class="text-center mt-4 mb-5" id="loadMoreWrap">
-    <button class="btn-loadmore" id="loadMoreBtn" onclick="loadMore()">
-      <i class="bi bi-arrow-clockwise me-2"></i>Cargar más
-    </button>
-  </div>
-
-</main>
-
-<!-- ═══════════════════════  TOAST CONTAINER  ═══════════════════════ -->
-<div class="toast-stack" id="toastStack"></div>
-
-<!-- ════════════════════════════  MODALS  ════════════════════════════ -->
-
-<!-- UPLOAD MODAL -->
-<div class="modal fade" id="uploadModal" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content modal-dark">
-      <div class="modal-header border-0 pb-0">
-        <h5 class="modal-title"><i class="bi bi-cloud-upload me-2 accent"></i>Subir archivo</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Drop zone -->
-        <div class="drop-zone" id="dropZone">
-          <div class="drop-inner">
-            <i class="bi bi-box-arrow-in-down drop-icon"></i>
-            <p class="drop-text">Arrastra tu archivo aquí</p>
-            <p class="drop-sub">o haz clic para seleccionar — cualquier extensión</p>
-            <input type="file" id="fileInput" class="d-none" accept="*/*"/>
-            <button class="btn btn-upload mt-2" onclick="document.getElementById('fileInput').click()">
-              <i class="bi bi-folder2 me-2"></i>Seleccionar archivo
-            </button>
-          </div>
-        </div>
-        <!-- Preview -->
-        <div class="file-preview d-none mt-3" id="filePreview">
-          <div class="d-flex align-items-center gap-3">
-            <div class="fp-icon" id="fpIcon"></div>
-            <div class="flex-grow-1">
-              <div class="fp-name" id="fpName"></div>
-              <div class="fp-meta" id="fpMeta"></div>
-            </div>
-            <button class="btn-ghost" onclick="clearFileInput()"><i class="bi bi-x-lg"></i></button>
-          </div>
-          <div class="upload-progress mt-3 d-none" id="uploadProgress">
-            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-            <span class="progress-pct" id="progressPct">0%</span>
-          </div>
-        </div>
-        <!-- Metadata form -->
-        <div class="mt-3 row g-3">
-          <div class="col-12">
-            <label class="form-label-dark">Título <span class="text-danger">*</span></label>
-            <input type="text" class="input-dark" id="uploadTitle" placeholder="Dale un nombre a tu archivo…" maxlength="80"/>
-          </div>
-          <div class="col-12">
-            <label class="form-label-dark">Descripción</label>
-            <textarea class="input-dark" id="uploadDesc" rows="3" placeholder="¿Qué es este archivo? ¿Para qué sirve?"></textarea>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label-dark">Categoría</label>
-            <select class="input-dark" id="uploadCat">
-              <option value="codigo">💻 Código</option>
-              <option value="apk">📱 APK</option>
-              <option value="documento">📄 Documento</option>
-              <option value="imagen">🖼️ Imagen</option>
-              <option value="video">🎬 Video</option>
-              <option value="audio">🎵 Audio</option>
-              <option value="otro">📦 Otro</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label-dark">Visibilidad</label>
-            <select class="input-dark" id="uploadVis">
-              <option value="public">🌍 Público</option>
-              <option value="private">🔒 Privado</option>
-              <option value="link">🔗 Solo con enlace</option>
-            </select>
-          </div>
-          <div class="col-12">
-            <label class="form-label-dark">Tags (separa con coma)</label>
-            <input type="text" class="input-dark" id="uploadTags" placeholder="python, script, util…"/>
-          </div>
+<!-- ═══════════════════════════════════════════════
+     STATS STRIP
+════════════════════════════════════════════════ -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <span class="stat-number">100+</span>
+          <span class="stat-label">Eventos realizados</span>
         </div>
       </div>
-      <div class="modal-footer border-0 pt-0">
-        <button class="btn-ghost" data-bs-dismiss="modal">Cancelar</button>
-        <button class="btn btn-upload px-4" id="submitUpload" onclick="handleUpload()">
-          <i class="bi bi-send me-2"></i>Publicar
-        </button>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <span class="stat-number">30+</span>
+          <span class="stat-label">Opciones de snacks</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <span class="stat-number">4h</span>
+          <span class="stat-label">Servicio incluido</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <span class="stat-number">★★★★★</span>
+          <span class="stat-label">Clientes felices</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- FILE DETAIL MODAL -->
-<div class="modal fade" id="fileModal" tabindex="-1">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content modal-dark">
-      <div class="modal-header border-0">
-        <div class="d-flex align-items-center gap-3 flex-grow-1">
-          <div class="fp-icon sm" id="fmIcon"></div>
-          <div>
-            <h5 class="modal-title mb-0" id="fmTitle">—</h5>
-            <small class="text-muted" id="fmMeta">—</small>
-          </div>
-        </div>
-        <div class="d-flex gap-2 me-3">
-          <button class="action-btn" id="fmLikeBtn" onclick="toggleLike()"><i class="bi bi-heart"></i> <span id="fmLikes">0</span></button>
-          <button class="action-btn" onclick="handleDownload()"><i class="bi bi-download"></i> <span id="fmDownloads">0</span></button>
-          <button class="action-btn" onclick="shareFile()"><i class="bi bi-share"></i></button>
-        </div>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-
-      <div class="modal-body row g-0" style="min-height:420px">
-        <!-- LEFT: preview / info -->
-        <div class="col-lg-7 border-end border-secondary p-4">
-          <div class="file-detail-preview" id="fmPreview"></div>
-          <div class="mt-3">
-            <p class="text-muted small mb-2" id="fmDesc"></p>
-            <div id="fmTags" class="d-flex flex-wrap gap-1 mb-3"></div>
-            <!-- CRUD buttons (owner only) -->
-            <div class="d-flex gap-2" id="fmOwnerActions">
-              <button class="btn-ghost sm" onclick="openEditModal()"><i class="bi bi-pencil me-1"></i>Editar</button>
-              <button class="btn-danger-ghost sm" onclick="deleteFile()"><i class="bi bi-trash me-1"></i>Eliminar</button>
+<!-- ═══════════════════════════════════════════════
+     NOSOTROS
+════════════════════════════════════════════════ -->
+<section id="nosotros" class="section-pad">
+  <div class="container">
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-6 order-lg-2">
+        <div class="section-label">Nuestra historia</div>
+        <h2 class="section-title">Reinventamos las mesas de dulces</h2>
+        <p class="section-body">
+          CandyPicks nació de una idea simple pero poderosa: adiós a las mesas atropelladas donde solo algunos alcanzan
+          todo, y los últimos se llevan los dulces que nadie quiso.
+        </p>
+        <p class="section-body">
+          Creamos experiencias organizadas, higiénicas y completamente personalizadas. Con servicio asistido,
+          cada invitado recibe su porción ideal, sin desperdicios y con una sonrisa.
+        </p>
+        <div class="row g-3 mt-2">
+          <div class="col-sm-6" v-for="v in valores">
+            <div class="valor-card">
+              <span class="valor-icon">🌟</span>
+              <div>
+                <strong>Calidad</strong>
+                <p class="mb-0">Selección cuidadosa de productos</p>
+              </div>
             </div>
           </div>
-        </div>
-        <!-- RIGHT: comments -->
-        <div class="col-lg-5 d-flex flex-column">
-          <div class="comment-header p-3 border-bottom border-secondary">
-            <span><i class="bi bi-chat-dots me-1 accent"></i>Comentarios (<span id="fmCommentCount">0</span>)</span>
+          <div class="col-sm-6">
+            <div class="valor-card">
+              <span class="valor-icon">💛</span>
+              <div>
+                <strong>Servicio</strong>
+                <p class="mb-0">Atención amable y personalizada</p>
+              </div>
+            </div>
           </div>
-          <div class="comment-list flex-grow-1 p-3" id="commentList"></div>
-          <div class="comment-input-bar p-3 border-top border-secondary">
-            <div class="d-flex gap-2 align-items-start">
-              <img src="https://api.dicebear.com/7.x/bottts/svg?seed=devdrop" class="comment-avatar" alt="yo"/>
-              <div class="flex-grow-1">
-                <textarea class="input-dark sm" id="newComment" rows="2" placeholder="Escribe un comentario…"></textarea>
-                <div class="d-flex justify-content-end mt-1">
-                  <button class="btn btn-upload sm" onclick="addComment()"><i class="bi bi-send me-1"></i>Enviar</button>
-                </div>
+          <div class="col-sm-6">
+            <div class="valor-card">
+              <span class="valor-icon">🎨</span>
+              <div>
+                <strong>Creatividad</strong>
+                <p class="mb-0">Diseños únicos y temáticos</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="valor-card">
+              <span class="valor-icon">🫧</span>
+              <div>
+                <strong>Higiene</strong>
+                <p class="mb-0">Manejo adecuado de alimentos</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="valor-card">
+              <span class="valor-icon">♻️</span>
+              <div>
+                <strong>Responsabilidad</strong>
+                <p class="mb-0">Reducción de desperdicio</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="valor-card">
+              <span class="valor-icon">✨</span>
+              <div>
+                <strong>Experiencia</strong>
+                <p class="mb-0">Momentos memorables</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- EDIT MODAL -->
-<div class="modal fade" id="editModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content modal-dark">
-      <div class="modal-header border-0">
-        <h5 class="modal-title"><i class="bi bi-pencil-square me-2 accent"></i>Editar archivo</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body row g-3">
-        <div class="col-12">
-          <label class="form-label-dark">Título</label>
-          <input type="text" class="input-dark" id="editTitle"/>
-        </div>
-        <div class="col-12">
-          <label class="form-label-dark">Descripción</label>
-          <textarea class="input-dark" id="editDesc" rows="3"></textarea>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label-dark">Categoría</label>
-          <select class="input-dark" id="editCat">
-            <option value="codigo">💻 Código</option>
-            <option value="apk">📱 APK</option>
-            <option value="documento">📄 Documento</option>
-            <option value="imagen">🖼️ Imagen</option>
-            <option value="video">🎬 Video</option>
-            <option value="audio">🎵 Audio</option>
-            <option value="otro">📦 Otro</option>
-          </select>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label-dark">Visibilidad</label>
-          <select class="input-dark" id="editVis">
-            <option value="public">🌍 Público</option>
-            <option value="private">🔒 Privado</option>
-            <option value="link">🔗 Solo con enlace</option>
-          </select>
-        </div>
-        <div class="col-12">
-          <label class="form-label-dark">Tags</label>
-          <input type="text" class="input-dark" id="editTags"/>
-        </div>
-      </div>
-      <div class="modal-footer border-0">
-        <button class="btn-ghost" data-bs-dismiss="modal">Cancelar</button>
-        <button class="btn btn-upload" onclick="saveEdit()"><i class="bi bi-check2 me-1"></i>Guardar cambios</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MESSAGES MODAL -->
-<div class="modal fade" id="messagesModal" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content modal-dark">
-      <div class="modal-header border-0">
-        <h5 class="modal-title"><i class="bi bi-chat-dots me-2 accent"></i>Mensajes directos</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body p-0 d-flex" style="height:500px">
-        <!-- Conversations list -->
-        <div class="conv-list border-end border-secondary">
-          <div class="p-2">
-            <input type="text" class="input-dark sm" id="convSearch" placeholder="Buscar…" oninput="filterConvs(this.value)"/>
+      <div class="col-lg-6 order-lg-1">
+        <!-- Imagen nosotros -->
+        <div class="img-frame img-frame--about">
+          <img src="images/nosotros.jpg" alt="Equipo CandyPicks" class="img-fluid" />
+          <div class="img-placeholder" aria-hidden="true">
+            <i class="bi bi-image"></i>
+            <span>Foto del equipo / setup<br><small>Reemplaza <code>images/nosotros.jpg</code></small></span>
           </div>
-          <div id="convList"></div>
-        </div>
-        <!-- Chat window -->
-        <div class="flex-grow-1 d-flex flex-column">
-          <div class="chat-header p-3 border-bottom border-secondary" id="chatHeader">
-            <span class="text-muted">Selecciona una conversación</span>
-          </div>
-          <div class="chat-messages flex-grow-1 p-3" id="chatMessages"></div>
-          <div class="chat-input-bar p-3 border-top border-secondary" id="chatInputBar" style="display:none!important">
-            <div class="d-flex gap-2">
-              <input type="text" class="input-dark flex-grow-1" id="msgInput" placeholder="Escribe un mensaje…" onkeydown="if(event.key==='Enter')sendMessage()"/>
-              <button class="btn btn-upload" onclick="sendMessage()"><i class="bi bi-send"></i></button>
-            </div>
-          </div>
-          <!-- Actually always show input -->
-          <div class="p-3 border-top border-secondary">
-            <div class="d-flex gap-2">
-              <input type="text" class="input-dark flex-grow-1" id="msgInputBottom" placeholder="Escribe un mensaje…" onkeydown="if(event.key==='Enter')sendMessage()"/>
-              <button class="btn btn-upload" onclick="sendMessage()"><i class="bi bi-send"></i></button>
+          <!-- Floating badge -->
+          <div class="float-badge">
+            <span>🍭</span>
+            <div>
+              <strong>Servicio asistido</strong>
+              <small>Siempre contigo</small>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- PROFILE MODAL -->
-<div class="modal fade" id="profileModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content modal-dark">
-      <div class="modal-header border-0">
-        <h5 class="modal-title"><i class="bi bi-person-circle me-2 accent"></i>Mi perfil</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body text-center">
-        <div class="profile-avatar-wrap mx-auto mb-3">
-          <img src="https://api.dicebear.com/7.x/bottts/svg?seed=devdrop" class="profile-avatar" alt="avatar"/>
-          <button class="avatar-change-btn" onclick="changeAvatar()"><i class="bi bi-camera"></i></button>
-        </div>
-        <div class="row g-3 text-start">
-          <div class="col-md-6">
-            <label class="form-label-dark">Nombre de usuario</label>
-            <input type="text" class="input-dark" id="profileUsername" value="DevUser_42"/>
+<!-- ═══════════════════════════════════════════════
+     GALERÍA
+════════════════════════════════════════════════ -->
+<section id="galeria" class="section-pad bg-section-alt">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-label">Nuestro trabajo</div>
+      <h2 class="section-title">Una probada de lo que hacemos</h2>
+      <p class="section-body mx-auto" style="max-width:540px">
+        Cada evento es diferente, cada mesa es única. Aquí algunos momentos que hemos creado.
+      </p>
+    </div>
+
+    <!-- Masonry-style gallery using Bootstrap grid -->
+    <div class="row g-3 gallery-grid">
+      <!-- Imagen grande izquierda -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="gallery-item gallery-item--tall">
+          <img src="images/galeria-1.jpg" alt="Mesa de frutas enchiladas" class="img-fluid" />
+          <div class="img-placeholder" aria-hidden="true">
+            <i class="bi bi-image"></i>
+            <span>Galería 1<br><small><code>images/galeria-1.jpg</code></small></span>
           </div>
-          <div class="col-md-6">
-            <label class="form-label-dark">Email</label>
-            <input type="email" class="input-dark" id="profileEmail" value="dev@example.com"/>
+          <div class="gallery-overlay">
+            <span>Mesa de frutas enchiladas</span>
           </div>
-          <div class="col-12">
-            <label class="form-label-dark">Bio</label>
-            <textarea class="input-dark" id="profileBio" rows="2" placeholder="Cuéntanos algo de ti…"></textarea>
-          </div>
-          <div class="col-12">
-            <label class="form-label-dark">Sitio web</label>
-            <input type="url" class="input-dark" id="profileWeb" placeholder="https://tu-sitio.dev"/>
-          </div>
-        </div>
-        <div class="profile-stats mt-4 d-flex justify-content-center gap-4">
-          <div class="text-center"><div class="stat-big" id="myFiles">0</div><small class="text-muted">Archivos</small></div>
-          <div class="text-center"><div class="stat-big" id="myLikes">0</div><small class="text-muted">Likes</small></div>
-          <div class="text-center"><div class="stat-big" id="myDownloads">0</div><small class="text-muted">Descargas</small></div>
         </div>
       </div>
-      <div class="modal-footer border-0">
-        <button class="btn-ghost" data-bs-dismiss="modal">Cerrar</button>
-        <button class="btn btn-upload" onclick="saveProfile()"><i class="bi bi-check2 me-1"></i>Guardar perfil</button>
+      <!-- Columna derecha 2 imágenes -->
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-column gap-3">
+        <div class="gallery-item">
+          <img src="images/galeria-2.jpg" alt="Mesa de dulces y snacks" class="img-fluid" />
+          <div class="img-placeholder" aria-hidden="true">
+            <i class="bi bi-image"></i>
+            <span>Galería 2<br><small><code>images/galeria-2.jpg</code></small></span>
+          </div>
+          <div class="gallery-overlay"><span>Mesa de dulces y snacks</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/galeria-3.jpg" alt="Mesa de postres" class="img-fluid" />
+          <div class="img-placeholder" aria-hidden="true">
+            <i class="bi bi-image"></i>
+            <span>Galería 3<br><small><code>images/galeria-3.jpg</code></small></span>
+          </div>
+          <div class="gallery-overlay"><span>Mesa de postres</span></div>
+        </div>
+      </div>
+      <!-- Columna 3 – dos imágenes -->
+      <div class="col-12 col-md-6 col-lg-4 d-flex flex-column gap-3">
+        <div class="gallery-item">
+          <img src="images/galeria-4.jpg" alt="Mesa temática" class="img-fluid" />
+          <div class="img-placeholder" aria-hidden="true">
+            <i class="bi bi-image"></i>
+            <span>Galería 4<br><small><code>images/galeria-4.jpg</code></small></span>
+          </div>
+          <div class="gallery-overlay"><span>Mesa temática</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/galeria-5.jpg" alt="Fuente de chocolate" class="img-fluid" />
+          <div class="img-placeholder" aria-hidden="true">
+            <i class="bi bi-image"></i>
+            <span>Galería 5<br><small><code>images/galeria-5.jpg</code></small></span>
+          </div>
+          <div class="gallery-overlay"><span>Fuente de chocolate</span></div>
+        </div>
+      </div>
+      <!-- Fila inferior: 3 imágenes iguales -->
+      <div class="col-6 col-md-4">
+        <div class="gallery-item">
+          <img src="images/galeria-6.jpg" alt="Detalle de mesa" class="img-fluid" />
+          <div class="img-placeholder" aria-hidden="true">
+            <i class="bi bi-image"></i>
+            <span>Galería 6<br><small><code>images/galeria-6.jpg</code></small></span>
+          </div>
+          <div class="gallery-overlay"><span>Detalles de mesa</span></div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="gallery-item">
+          <img src="images/galeria-7.jpg" alt="Evento de xv años" class="img-fluid" />
+          <div class="img-placeholder" aria-hidden="true">
+            <i class="bi bi-image"></i>
+            <span>Galería 7<br><small><code>images/galeria-7.jpg</code></small></span>
+          </div>
+          <div class="gallery-overlay"><span>Evento xv años</span></div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="gallery-item">
+          <img src="images/galeria-8.jpg" alt="Mesa de ensaladas" class="img-fluid" />
+          <div class="img-placeholder" aria-hidden="true">
+            <i class="bi bi-image"></i>
+            <span>Galería 8<br><small><code>images/galeria-8.jpg</code></small></span>
+          </div>
+          <div class="gallery-overlay"><span>Barra de ensaladas</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PAQUETES
+════════════════════════════════════════════════ -->
+<section id="paquetes" class="section-pad">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-label">Nuestros paquetes</div>
+      <h2 class="section-title">Elige tu experiencia dulce</h2>
+      <p class="section-body mx-auto" style="max-width:540px">
+        Tenemos opciones para cada evento. Selecciona el tipo de mesa y el tamaño que necesitas.
+      </p>
+    </div>
+
+    <!-- Toggle pequeño / grande -->
+    <div class="d-flex justify-content-center mb-5">
+      <div class="pkg-toggle" role="group" aria-label="Tamaño del evento">
+        <button class="pkg-toggle-btn active" id="btnProbete" onclick="togglePkg('probete')">
+          🍬 Candy Probete
+          <small>Eventos pequeños</small>
+        </button>
+        <button class="pkg-toggle-btn" id="btnLlenetes" onclick="togglePkg('llenetes')">
+          🎉 Candy Llenetes
+          <small>Eventos grandes</small>
+        </button>
+      </div>
+    </div>
+
+    <!-- PROBETE -->
+    <div id="pkgProbete" class="pkg-grid row g-4 justify-content-center">
+
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="pkg-card">
+          <div class="pkg-img-wrap">
+            <img src="images/pkg-snacks-sm.jpg" alt="Mesa de dulces y snacks" class="img-fluid" />
+            <div class="img-placeholder" aria-hidden="true">
+              <i class="bi bi-image"></i>
+              <span>Mesa dulces &amp; snacks<br><small><code>images/pkg-snacks-sm.jpg</code></small></span>
+            </div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-tag">Candy Probete</div>
+            <h3 class="pkg-title">Dulces y Snacks</h3>
+            <p class="pkg-desc">Surtido de dulces a granel y botanas como papas, chicharrones y cacahuates.</p>
+            <ul class="pkg-includes">
+              <li><i class="bi bi-check2-circle"></i> Dulces a granel</li>
+              <li><i class="bi bi-check2-circle"></i> Papas y chicharrones</li>
+              <li><i class="bi bi-check2-circle"></i> Cacahuates</li>
+              <li><i class="bi bi-check2-circle"></i> Montaje y desmontaje</li>
+              <li><i class="bi bi-check2-circle"></i> Servicio asistido 2–4 h</li>
+            </ul>
+            <div class="pkg-price">$2,500</div>
+            <a href="#contacto" class="btn btn-pkg">Cotizar este paquete</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="pkg-card pkg-card--featured">
+          <div class="pkg-ribbon">Popular</div>
+          <div class="pkg-img-wrap">
+            <img src="images/pkg-frutas-sm.jpg" alt="Mesa de frutas y enchilados" class="img-fluid" />
+            <div class="img-placeholder" aria-hidden="true">
+              <i class="bi bi-image"></i>
+              <span>Mesa frutas &amp; enchilados<br><small><code>images/pkg-frutas-sm.jpg</code></small></span>
+            </div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-tag">Candy Probete</div>
+            <h3 class="pkg-title">Frutas y Enchilados</h3>
+            <p class="pkg-desc">Frescura con sabor. Frutas picadas + gomitas enchiladas y dulces de tamarindo.</p>
+            <ul class="pkg-includes">
+              <li><i class="bi bi-check2-circle"></i> Jícama, mango, sandía, pepino, manzana</li>
+              <li><i class="bi bi-check2-circle"></i> Fresas y uvas</li>
+              <li><i class="bi bi-check2-circle"></i> Gomitas enchiladas de mango y piña</li>
+              <li><i class="bi bi-check2-circle"></i> Dulces de tamarindo</li>
+              <li><i class="bi bi-check2-circle"></i> Comprimidos de sal acidulado</li>
+              <li><i class="bi bi-check2-circle"></i> Montaje y servicio asistido</li>
+            </ul>
+            <div class="pkg-price">$4,500</div>
+            <a href="#contacto" class="btn btn-pkg btn-pkg--featured">Cotizar este paquete</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="pkg-card">
+          <div class="pkg-img-wrap">
+            <img src="images/pkg-postres-sm.jpg" alt="Mesa de dulces y postres" class="img-fluid" />
+            <div class="img-placeholder" aria-hidden="true">
+              <i class="bi bi-image"></i>
+              <span>Mesa dulces &amp; postres<br><small><code>images/pkg-postres-sm.jpg</code></small></span>
+            </div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-tag">Candy Probete</div>
+            <h3 class="pkg-title">Dulces y Postres</h3>
+            <p class="pkg-desc">Lo mejor de dos mundos: snacks y postres caseros para los más golosos.</p>
+            <ul class="pkg-includes">
+              <li><i class="bi bi-check2-circle"></i> Fresas y uvas</li>
+              <li><i class="bi bi-check2-circle"></i> Galletas surtidas y cupcakes</li>
+              <li><i class="bi bi-check2-circle"></i> Arroz con leche y gelatinas</li>
+              <li><i class="bi bi-check2-circle"></i> Pan dulce y bollos</li>
+              <li><i class="bi bi-check2-circle"></i> Chicharrines y palomitas saladas</li>
+              <li><i class="bi bi-check2-circle"></i> Montaje y servicio asistido</li>
+            </ul>
+            <div class="pkg-price">$5,000</div>
+            <a href="#contacto" class="btn btn-pkg">Cotizar este paquete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LLENETES (oculto por defecto) -->
+    <div id="pkgLlenetes" class="pkg-grid row g-4 justify-content-center d-none">
+
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="pkg-card">
+          <div class="pkg-img-wrap">
+            <img src="images/pkg-snacks-lg.jpg" alt="Mesa de dulces y snacks grande" class="img-fluid" />
+            <div class="img-placeholder" aria-hidden="true">
+              <i class="bi bi-image"></i>
+              <span>Mesa snacks grande<br><small><code>images/pkg-snacks-lg.jpg</code></small></span>
+            </div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-tag">Candy Llenetes</div>
+            <h3 class="pkg-title">Dulces y Snacks</h3>
+            <p class="pkg-desc">Todo lo del paquete pequeño, amplificado para que nadie se quede con antojo.</p>
+            <ul class="pkg-includes">
+              <li><i class="bi bi-check2-circle"></i> Mayor cantidad y variedad</li>
+              <li><i class="bi bi-check2-circle"></i> Dulces a granel</li>
+              <li><i class="bi bi-check2-circle"></i> Botanas premium</li>
+              <li><i class="bi bi-check2-circle"></i> Montaje y desmontaje</li>
+              <li><i class="bi bi-check2-circle"></i> Servicio asistido 2–4 h</li>
+            </ul>
+            <div class="pkg-price">$4,500</div>
+            <a href="#contacto" class="btn btn-pkg">Cotizar este paquete</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="pkg-card pkg-card--featured">
+          <div class="pkg-ribbon">Popular</div>
+          <div class="pkg-img-wrap">
+            <img src="images/pkg-frutas-lg.jpg" alt="Mesa de frutas y enchilados grande" class="img-fluid" />
+            <div class="img-placeholder" aria-hidden="true">
+              <i class="bi bi-image"></i>
+              <span>Mesa frutas grande<br><small><code>images/pkg-frutas-lg.jpg</code></small></span>
+            </div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-tag">Candy Llenetes</div>
+            <h3 class="pkg-title">Frutas y Enchilados</h3>
+            <p class="pkg-desc">La versión XL con mangos en flor, manzanas caramelizadas y mucho más.</p>
+            <ul class="pkg-includes">
+              <li><i class="bi bi-check2-circle"></i> Todo el Probete +</li>
+              <li><i class="bi bi-check2-circle"></i> Melón picado</li>
+              <li><i class="bi bi-check2-circle"></i> Gomitas de pepino y fresa con chile</li>
+              <li><i class="bi bi-check2-circle"></i> Manzanas caramelizadas y enchiladas</li>
+              <li><i class="bi bi-check2-circle"></i> Mangos en flor</li>
+              <li><i class="bi bi-check2-circle"></i> Caramelos macizos</li>
+            </ul>
+            <div class="pkg-price">$7,000</div>
+            <a href="#contacto" class="btn btn-pkg btn-pkg--featured">Cotizar este paquete</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="pkg-card">
+          <div class="pkg-img-wrap">
+            <img src="images/pkg-postres-lg.jpg" alt="Mesa de dulces y postres grande" class="img-fluid" />
+            <div class="img-placeholder" aria-hidden="true">
+              <i class="bi bi-image"></i>
+              <span>Mesa postres grande<br><small><code>images/pkg-postres-lg.jpg</code></small></span>
+            </div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-tag">Candy Llenetes</div>
+            <h3 class="pkg-title">Dulces y Postres</h3>
+            <p class="pkg-desc">La experiencia completa: fuente de chocolate, flan, chocoflan y más.</p>
+            <ul class="pkg-includes">
+              <li><i class="bi bi-check2-circle"></i> Todo el Probete +</li>
+              <li><i class="bi bi-check2-circle"></i> Fuente de chocolate y chocolate blanco</li>
+              <li><i class="bi bi-check2-circle"></i> Flan y Chocoflan</li>
+              <li><i class="bi bi-check2-circle"></i> Palomitas dulces y con chile</li>
+              <li><i class="bi bi-check2-circle"></i> Mayor cantidad para todos</li>
+            </ul>
+            <div class="pkg-price">$7,500</div>
+            <a href="#contacto" class="btn btn-pkg">Cotizar este paquete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nota anticipo -->
+    <div class="anticipo-note text-center mt-5">
+      <i class="bi bi-info-circle"></i>
+      Se requiere <strong>anticipo del 50%</strong> para reservar fecha.
+      Cancelaciones con menos de 72 horas no son reembolsables.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     EXTRAS / ADICIONALES
+════════════════════════════════════════════════ -->
+<section id="adicionales" class="section-pad bg-section-alt">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-label">Más opciones</div>
+      <h2 class="section-title">Personaliza tu mesa</h2>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Ensaladas -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="extra-card">
+          <div class="extra-img">
+            <img src="images/extra-ensaladas.jpg" alt="Barra de ensaladas" class="img-fluid" />
+            <div class="img-placeholder" aria-hidden="true">
+              <i class="bi bi-image"></i>
+              <span>Barra de ensaladas<br><small><code>images/extra-ensaladas.jpg</code></small></span>
+            </div>
+          </div>
+          <div class="extra-body">
+            <div class="extra-icon">🥗</div>
+            <h4>Barra de Ensaladas</h4>
+            <p>¿Quieres algo más fit? Una barra de ensaladas que sorprenderá a tus invitados.</p>
+            <span class="extra-price">Precio bajo cotización</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Temático -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="extra-card extra-card--highlight">
+          <div class="extra-img">
+            <img src="images/extra-tematico.jpg" alt="Mesa temática personalizada" class="img-fluid" />
+            <div class="img-placeholder" aria-hidden="true">
+              <i class="bi bi-image"></i>
+              <span>Mesa temática<br><small><code>images/extra-tematico.jpg</code></small></span>
+            </div>
+          </div>
+          <div class="extra-body">
+            <div class="extra-icon">🦕</div>
+            <h4>Mesa Temática</h4>
+            <p>¿Fiesta de dinosaurios? Galletas de huellita, meteoritos de palomitas, dinoquesadillas… ¡las posibilidades son infinitas!</p>
+            <span class="extra-price">Precio según diseño</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arma tu mesa -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="extra-card">
+          <div class="extra-img">
+            <img src="images/extra-personalizada.jpg" alt="Arma tu mesa" class="img-fluid" />
+            <div class="img-placeholder" aria-hidden="true">
+              <i class="bi bi-image"></i>
+              <span>Arma tu mesa<br><small><code>images/extra-personalizada.jpg</code></small></span>
+            </div>
+          </div>
+          <div class="extra-body">
+            <div class="extra-icon">🛠️</div>
+            <h4>Arma tu Mesa</h4>
+            <p>Elige exactamente las botanas que quieres. Envíanos mensaje y te respondemos con tu cotización.</p>
+            <a href="#contacto" class="extra-price" style="cursor:pointer;text-decoration:underline;">¡Cotiza ahora!</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Catálogo de ingredientes -->
+    <div class="catalogo mt-5">
+      <h3 class="catalogo-title">Catálogo de opciones</h3>
+      <p class="text-center mb-4">Todos los snacks y dulces disponibles para armar tu mesa ideal</p>
+      <div class="row g-2" id="catalogoGrid">
+        <!-- JS inserta los items -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CÓMO FUNCIONA
+════════════════════════════════════════════════ -->
+<section id="como" class="section-pad">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-label">El proceso</div>
+      <h2 class="section-title">¿Cómo funciona?</h2>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-icon">📞</div>
+          <h5>Contáctanos</h5>
+          <p>Escríbenos por WhatsApp o llena el formulario con los detalles de tu evento.</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-icon">🎨</div>
+          <h5>Diseñamos tu mesa</h5>
+          <p>Elegimos juntos el paquete, tema y snacks perfectos para tu celebración.</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-icon">✅</div>
+          <h5>Reserva y anticipo</h5>
+          <p>Confirma tu fecha con el 50% de anticipo y queda listo. ¡Así de fácil!</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <div class="step-icon">🎉</div>
+          <h5>¡A disfrutar!</h5>
+          <p>Llegamos, montamos y atendemos a tus invitados durante todo el evento.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CONTACTO
+════════════════════════════════════════════════ -->
+<section id="contacto" class="section-pad bg-section-alt">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5">
+        <div class="section-label">Hablemos</div>
+        <h2 class="section-title">Cotiza tu evento</h2>
+        <p class="section-body">
+          Cuéntanos sobre tu fiesta y en menos de 24 horas te enviamos una propuesta personalizada.
+        </p>
+        <div class="contact-info mt-4 d-flex flex-column gap-3">
+          <a href="https://wa.me/521XXXXXXXXXX" class="contact-link" target="_blank" rel="noopener">
+            <i class="bi bi-whatsapp"></i>
+            <div>
+              <strong>WhatsApp</strong>
+              <span>Escríbenos directamente</span>
+            </div>
+          </a>
+          <a href="mailto:hola@candypicks.mx" class="contact-link">
+            <i class="bi bi-envelope-fill"></i>
+            <div>
+              <strong>Correo electrónico</strong>
+              <span>hola@candypicks.mx</span>
+            </div>
+          </a>
+          <a href="https://instagram.com/candypicks" class="contact-link" target="_blank" rel="noopener">
+            <i class="bi bi-instagram"></i>
+            <div>
+              <strong>Instagram</strong>
+              <span>@candypicks</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="contact-form-wrap">
+          <form id="contactForm" novalidate>
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label for="nombre" class="form-label">Nombre completo *</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Tu nombre" required />
+                <div class="invalid-feedback">Por favor ingresa tu nombre.</div>
+              </div>
+              <div class="col-sm-6">
+                <label for="telefono" class="form-label">Teléfono / WhatsApp *</label>
+                <input type="tel" class="form-control" id="telefono" placeholder="55 1234 5678" required />
+                <div class="invalid-feedback">Por favor ingresa tu teléfono.</div>
+              </div>
+              <div class="col-12">
+                <label for="correo" class="form-label">Correo electrónico *</label>
+                <input type="email" class="form-control" id="correo" placeholder="tu@correo.com" required />
+                <div class="invalid-feedback">Ingresa un correo válido.</div>
+              </div>
+              <div class="col-sm-6">
+                <label for="tipoEvento" class="form-label">Tipo de evento</label>
+                <select class="form-select" id="tipoEvento">
+                  <option value="">Selecciona...</option>
+                  <option>Cumpleaños</option>
+                  <option>XV años</option>
+                  <option>Boda</option>
+                  <option>Baby shower</option>
+                  <option>Graduación</option>
+                  <option>Corporativo</option>
+                  <option>Otro</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label for="fecha" class="form-label">Fecha del evento</label>
+                <input type="date" class="form-control" id="fecha" />
+              </div>
+              <div class="col-sm-6">
+                <label for="paquete" class="form-label">Paquete de interés</label>
+                <select class="form-select" id="paquete">
+                  <option value="">Selecciona...</option>
+                  <option>Candy Probete – Dulces y Snacks ($2,500)</option>
+                  <option>Candy Probete – Frutas y Enchilados ($4,500)</option>
+                  <option>Candy Probete – Dulces y Postres ($5,000)</option>
+                  <option>Candy Llenetes – Dulces y Snacks ($4,500)</option>
+                  <option>Candy Llenetes – Frutas y Enchilados ($7,000)</option>
+                  <option>Candy Llenetes – Dulces y Postres ($7,500)</option>
+                  <option>Mesa temática personalizada</option>
+                  <option>Barra de ensaladas</option>
+                  <option>Armar mi propia mesa</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label for="invitados" class="form-label">Número de invitados</label>
+                <input type="number" class="form-control" id="invitados" placeholder="Aprox. cuántos" min="1" />
+              </div>
+              <div class="col-12">
+                <label for="mensaje" class="form-label">Cuéntanos más (opcional)</label>
+                <textarea class="form-control" id="mensaje" rows="3" placeholder="Tema de la fiesta, dudas, ideas..."></textarea>
+              </div>
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="privacidad" required />
+                  <label class="form-check-label" for="privacidad">
+                    Acepto el <a href="#privacidad-modal" data-bs-toggle="modal" data-bs-target="#privacidadModal">aviso de privacidad</a>
+                  </label>
+                  <div class="invalid-feedback">Debes aceptar el aviso de privacidad.</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-cta w-100 py-3" id="submitBtn">
+                  Enviar solicitud de cotización 🍬
+                </button>
+                <div id="formMsg" class="mt-3 text-center fw-bold d-none"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-4 align-items-start">
+      <div class="col-12 col-md-4">
+        <div class="footer-brand">
+          <span>🍬</span> <strong>CandyPicks</strong>
+        </div>
+        <p class="footer-slogan">Fiestas mágicas, antojos para todos</p>
+        <div class="footer-social d-flex gap-3 mt-3">
+          <a href="https://instagram.com/candypicks" target="_blank" rel="noopener" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="https://wa.me/521XXXXXXXXXX" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+          <a href="https://facebook.com/candypicks" target="_blank" rel="noopener" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="https://tiktok.com/@candypicks" target="_blank" rel="noopener" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-md-2">
+        <h6 class="footer-heading">Navegación</h6>
+        <ul class="footer-links">
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#paquetes">Paquetes</a></li>
+          <li><a href="#adicionales">Extras</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-3">
+        <h6 class="footer-heading">Paquetes</h6>
+        <ul class="footer-links">
+          <li><a href="#paquetes">Candy Probete</a></li>
+          <li><a href="#paquetes">Candy Llenetes</a></li>
+          <li><a href="#adicionales">Mesa temática</a></li>
+          <li><a href="#adicionales">Barra ensaladas</a></li>
+          <li><a href="#adicionales">Arma tu mesa</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-3">
+        <h6 class="footer-heading">Legal</h6>
+        <ul class="footer-links">
+          <li><a href="#" data-bs-toggle="modal" data-bs-target="#privacidadModal">Aviso de privacidad</a></li>
+          <li><a href="#" data-bs-toggle="modal" data-bs-target="#terminosModal">Términos y condiciones</a></li>
+        </ul>
+        <p class="footer-anticipo mt-3">
+          <i class="bi bi-clock"></i> Anticipo 50% al reservar
+        </p>
+      </div>
+    </div>
+    <hr class="footer-hr" />
+    <p class="footer-copy text-center mb-0">
+      © <span id="yearFooter"></span> CandyPicks. Todos los derechos reservados.
+    </p>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     MODALES
+════════════════════════════════════════════════ -->
+
+<!-- Privacidad -->
+<div class="modal fade" id="privacidadModal" tabindex="-1" aria-labelledby="privacidadLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content modal-candy">
+      <div class="modal-header">
+        <h5 class="modal-title" id="privacidadLabel">🔒 Aviso de Privacidad</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>CandyPicks recopila datos personales como nombre, teléfono y correo electrónico únicamente para:</p>
+        <ul>
+          <li>Cotizaciones</li>
+          <li>Reservaciones</li>
+          <li>Seguimiento de servicios</li>
+        </ul>
+        <p>No compartimos información con terceros sin consentimiento.</p>
+        <p>Puedes solicitar modificación o eliminación de tus datos en cualquier momento contactándonos directamente.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cta" data-bs-dismiss="modal">Entendido</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- CONFIRM DELETE MODAL -->
-<div class="modal fade" id="confirmModal" tabindex="-1">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
-    <div class="modal-content modal-dark text-center p-3">
-      <div class="fs-1 mb-2">⚠️</div>
-      <h6 class="mb-2">¿Eliminar archivo?</h6>
-      <p class="text-muted small mb-3">Esta acción no se puede deshacer.</p>
-      <div class="d-flex gap-2 justify-content-center">
-        <button class="btn-ghost" data-bs-dismiss="modal">Cancelar</button>
-        <button class="btn-danger-ghost" id="confirmDeleteBtn">Eliminar</button>
+<!-- Términos -->
+<div class="modal fade" id="terminosModal" tabindex="-1" aria-labelledby="terminosLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content modal-candy">
+      <div class="modal-header">
+        <h5 class="modal-title" id="terminosLabel">📋 Términos y Condiciones</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li>Se requiere anticipo del <strong>50%</strong> para reservar fecha.</li>
+          <li>Cancelaciones con menos de <strong>72 horas</strong> no son reembolsables.</li>
+          <li>Cambios sujetos a disponibilidad.</li>
+          <li>El servicio incluye <strong>montaje, atención y desmontaje</strong>.</li>
+          <li>Tiempo de servicio estándar: <strong>2 a 4 horas</strong> (según paquete).</li>
+          <li>El cliente debe proporcionar espacio adecuado.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cta" data-bs-dismiss="modal">Entendido</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SCRIPTS -->
+<!-- WhatsApp FAB -->
+<a href="https://wa.me/521XXXXXXXXXX" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+  <i class="bi bi-whatsapp"></i>
+</a>
+
+<!-- Scroll to top -->
+<button class="scroll-top-btn" id="scrollTopBtn" aria-label="Volver arriba">
+  <i class="bi bi-arrow-up"></i>
+</button>
+
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="data.js"></script>
-<script src="scripts.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
+
